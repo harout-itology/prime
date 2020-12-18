@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Message;
+use App\Prime;
 use App\Lib\PrimeLib;
 
 
@@ -13,6 +14,11 @@ class PrimeController extends Controller
     public function __construct(PrimeLib $primeLib)
     {
         $this->primeLib = $primeLib;
+    }
+
+    public function index()
+    {
+        return  response()->json(Prime::select([ 'value', 'times'])->get());
     }
 
     public function showRange(int $from, int $to)
@@ -33,14 +39,13 @@ class PrimeController extends Controller
     public function show(int $value)
     {
         if($this->primeLib->isPrimeNumber($value)) {
+            $this->primeLib->isOverChecked($value);
             return response()->json(['message'=>'Yes your number is a prime number']);
         }
-
-        $message = Message::wherein('id',[1,2])->get();
-        $index = $this->primeLib->isOverChecked($value) ?? 0;
-        return response()->json(['message' => $message[$index]->text]);
+        else{
+            return $this->primeLib->isOverChecked($value) ?
+                response()->json(['message' => Message::where('id', 1)->value('text')]) :
+                response()->json(['message' => 'No']);
+        }
     }
-
-
-
 }

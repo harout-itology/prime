@@ -18,6 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/prime', 'PrimeController@index');
 Route::get('/prime/{value}', 'PrimeController@show');
 Route::get('/prime/{from}/{to}', 'PrimeController@showrange');
 

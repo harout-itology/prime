@@ -30,7 +30,9 @@ class PrimeLib
             $prime = new Prime();
             $prime->value = $value;
         }
-        else if($prime->times >= Message::where('id',2)->value('frequency')){
+        else if($prime->times >= Message::where('id', 1)->value('frequency')){
+            $prime->times += 1;
+            $prime->save();
             return true;
         }
         else{
