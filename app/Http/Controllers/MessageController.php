@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Message;
 use Illuminate\Http\Request;
+use App\Http\Requests\MessageRequest;
 
 class MessageController extends Controller
 {
@@ -33,11 +34,11 @@ class MessageController extends Controller
         //
     }
 
-    public function update(Request $request, Message $message)
+    public function update(MessageRequest $request, Message $message)
     {
         $message->text = $request->text;
         $message->save();
-        return response()->json(['message'=>'Successfullt updated']);
+        return response()->json(['message'=>'Successfully updated']);
     }
 
     public function destroy(Message $message)

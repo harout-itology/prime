@@ -19,5 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/prime/{value}', 'PrimeController@show');
+Route::get('/prime/{from}/{to}', 'PrimeController@showrange');
 
 Route::put('/message/{message}', 'MessageController@update');
