@@ -13,6 +13,6 @@ class MessageSeeder extends Seeder
     public function run()
     {
         Message::updateOrCreate(['id'=>1],['text'=>'No']);
-        Message::updateOrCreate(['id'=>2],['text'=>'No, and we already told you so!']);
+        Message::updateOrCreate(['id'=>2],['text'=>'No, and we already told you so!', 'frequency'=> 3]);
     }
 }
