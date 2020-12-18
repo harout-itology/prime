@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Prime;
+use App\Message;
 use Illuminate\Http\Request;
 
 class PrimeController extends Controller
@@ -23,11 +24,13 @@ class PrimeController extends Controller
         return response()->json(['isPrime'=>'yes']);
     }
 
-    protected function returnError(int $value)
+    protected function returnError(int $value) : array
     {
+        $message = Message::wherein('id',[1,2])->get();
+
         if(!$this->notPrime($value))
-            return ['isPrime' => 'NONONO'];
-        return ['isPrime' => 'no'];
+            return ['isPrime' => $message[1]->text];
+        return ['isPrime' => $message[0]->text];
     }
 
     protected function notPrime(int $value) : bool
